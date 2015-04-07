@@ -20,24 +20,24 @@ date: 2015-04-07T16:25:55+08:00
 
 ### 1. 安装 jspm CLI:
 
-  ```
+  {% highlight bash%}
     npm install jspm -g
-  ```
+  {% endhighlight %}
 
 ### 2. 创建一个项目:
 
 可以用如下方法在项目中锁定jspm版本:
 
-  ```
-    cd my-project
-    npm install jspm
-  ```
+{% highlight bash%}
+cd my-project
+npm install jspm
+{% endhighlight%}
 
 > 特别建议在本地锁定jspm的版本，因为他能保证全局环境下的jspm的升级不会影响你的应用程序。可以用`jspm -v`来确定本地jspm版本。
 
 创建一个本地配置文件：
 
-  ```
+ {% highlight bash%}
   jspm init
 
 Package.json file does not exist, create it? [yes]:
@@ -48,7 +48,7 @@ Enter config file path [./config.js]:
 Configuration file config.js doesn't exist, create it? [yes]:
 Enter client baseURL (public folder URL) [/]:
 Which ES6 transpiler would you like to use, Traceur or Babel? [traceur]:
-```
+{% endhighlight %}
 
   这些操作用于设置`package.json`和config文件。
   注意，当你尝试在一个空目录用jspm安装一个依赖时，`jspm init`会自动运行。
@@ -65,12 +65,12 @@ It is possible to run through the above prompts again at any time with `jspm ini
 
 ### 3. 安装一些来自jspm Registry，Github或者npm里的依赖包：
 
-  ```
+  {% highlight bash%}
     jspm install npm:lodash-node
     jspm install github:components/jquery
     jspm install jquery
     jspm install myname=npm:underscore
-  ```
+  {% endhighlight %}
 
   Multiple installs can also be combined into a single line separated by spaces.
 
@@ -89,7 +89,7 @@ Github packages may need to be configured for jspm first. [Read the guide here o
 We can now write into our `lib` folder code that loads our dependencies, in any module format (including ES6):
 
   lib/bootstrap.js
-  ```javascript
+  {% highlight js%}
     import _ from 'lodash-node/modern/lang/isEqual';
     import $ from 'jquery';
     import underscore from 'myname';
@@ -97,26 +97,26 @@ We can now write into our `lib` folder code that loads our dependencies, in any 
     export function bootstrap() {
       // bootstrap code here
     }
-  ```
+  {% endhighlight %}
 
   lib/main.js
-  ```javascript
-    import {bootstrap} from './bootstrap';
-    bootstrap();
-  ```
+  {% highlight js%}
+import {bootstrap} from './bootstrap';
+bootstrap();
+  {% endhighlight %}
 
 ### 5. 运行代码
 
 In an HTML page include the automatically downloaded SystemJS loader along with the config file, then import our application main entry point:
 
-  ```html
-  <!doctype html>
-  <script src="jspm_packages/system.js"></script>
-  <script src="config.js"></script>
-  <script>
-    System.import('lib/main');
-  </script>
-  ```
+{% highlight html%}
+<!doctype html>
+<script src="jspm_packages/system.js"></script>
+<script src="config.js"></script>
+<script>
+  System.import('lib/main');
+</script>
+{% endhighlight %}
 
 Run a local server and view the page, or run the browser with the [file access from files flag](https://github.com/systemjs/systemjs/wiki/Basic-Use#file-access-from-files) and open the HTML page directly.
 
@@ -124,9 +124,9 @@ Run a local server and view the page, or run the browser with the [file access f
 
 ### 6. 为生产环境打包
 
-```
+{% highlight bash%}
   jspm bundle lib/main --inject
-```
+{% endhighlight %}
 
 Refresh the browser, and see the entire app loaded from a single bundle file.
 
@@ -138,4 +138,4 @@ Alternatively, use `jspm bundle-sfx lib/main` to create a bundle script that can
 
 [浏览jspm配置指南](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm).
 
-_如果你有关于配置jspm依赖包的问题，可以在registry[提交一个issue](https://github.com/jspm/registry/) ，我们会帮你解决这个配置问题。_
+如果你有关于配置jspm依赖包的问题，可以在registry[提交一个issue](https://github.com/jspm/registry/) ，我们会帮你解决这个配置问题。
