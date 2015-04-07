@@ -56,7 +56,7 @@ Which ES6 transpiler would you like to use, Traceur or Babel? [traceur]:
 * **baseURL**: 这个参数用于配置相对于package.json文件，提供服务的公共目录，。 _默认为package.json所在的文件夹。_
 * **jspm packages folder**: 这个目录指向将安装外部依赖的文件夹。
 * **Config file path**: 应用程序的jspm配置文件路径。此路径必须包含在`baseURL`里，并且要被包含在版本控制文件中。
-* **Client baseURL**: The URL from the browser where the public folder is hosted.
+* **Client baseURL**: 来自公共文件夹的位置，也就是来自客户端的浏览器的URL。
 * **Transpiler**: Change this option at any time with `jspm dl-loader --babel`. Custom transpilation options can also be set through `babelOptions` or `traceurOptions` in the jspm config file.
 
 If you ever need to reset any of these properties, you can modify the package.json, which will update the configuration when you next run `jspm install` or `jspm init` to refresh.
@@ -128,9 +128,9 @@ Run a local server and view the page, or run the browser with the [file access f
   jspm bundle lib/main --inject
 {% endhighlight %}
 
-Refresh the browser, and see the entire app loaded from a single bundle file.
+刷新浏览器，你就会看到所有的app均来自一个打包文件。
 
-Alternatively, use `jspm bundle-sfx lib/main` to create a bundle script that can be used on its own with a `<script>` tag independent of `config.js` and `system.js`.
+另外，如果使用`jspm bundle-sfx lib/main`来创建打包的脚本文件，能够不依赖 `config.js`和 `system.js`，单独在`<script>`标签中加载。
 
 ### 下一步
 
