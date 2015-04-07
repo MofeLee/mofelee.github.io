@@ -59,17 +59,17 @@ Which ES6 transpiler would you like to use, Traceur or Babel? [traceur]:
 * **Client baseURL**: 来自浏览器的URL路径，也就是公共目录所在的位置。
 * **Transpiler**: 可以在任何时候用 `jspm dl-loader --babel`修改此选项。也可以通过在jspm配置文件中定义 `babelOptions` 或 `traceurOptions` 来自定义转译器的可选项。
 
-If you ever need to reset any of these properties, you can modify the package.json, which will update the configuration when you next run `jspm install` or `jspm init` to refresh.
+你能通过package.json文件来修改这些属性，当你更新了配置文件后，你需要通过`jspm install`或`jspm init`来刷新这些配置。
 
-It is possible to run through the above prompts again at any time with `jspm init -p`.
+当能通过`jspm init -p`命令重新运行如上提示。
 
-### 3. 安装一些来自jspm Registry，Github或者npm里的依赖包：
+### 3. 安装来自jspm Registry、Github或者npm的依赖包：
 
   {% highlight bash%}
-    jspm install npm:lodash-node
-    jspm install github:components/jquery
-    jspm install jquery
-    jspm install myname=npm:underscore
+jspm install npm:lodash-node
+jspm install github:components/jquery
+jspm install jquery
+jspm install myname=npm:underscore
   {% endhighlight %}
 
   Multiple installs can also be combined into a single line separated by spaces.
@@ -90,13 +90,13 @@ We can now write into our `lib` folder code that loads our dependencies, in any 
 
   lib/bootstrap.js
   {% highlight js%}
-    import _ from 'lodash-node/modern/lang/isEqual';
-    import $ from 'jquery';
-    import underscore from 'myname';
+import _ from 'lodash-node/modern/lang/isEqual';
+import $ from 'jquery';
+import underscore from 'myname';
 
-    export function bootstrap() {
-      // bootstrap code here
-    }
+export function bootstrap() {
+  // bootstrap code here
+}
   {% endhighlight %}
 
   lib/main.js
