@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Jspm CLI入门教程"
+title: "Jspm CLI官方入门教程"
 modified:
 categories:
 description:
-tags: []
+tags: [jspm-cli]
 image:
   feature:
   credit:
@@ -56,8 +56,8 @@ Which ES6 transpiler would you like to use, Traceur or Babel? [traceur]:
 * **baseURL**: 这个参数用于配置相对于package.json文件，提供服务的公共目录，。 _默认为package.json所在的文件夹。_
 * **jspm packages folder**: 这个目录指向将安装外部依赖的文件夹。
 * **Config file path**: 应用程序的jspm配置文件路径。此路径必须包含在`baseURL`里，并且要被包含在版本控制文件中。
-* **Client baseURL**: 来自公共文件夹的位置，也就是来自客户端的浏览器的URL。
-* **Transpiler**: Change this option at any time with `jspm dl-loader --babel`. Custom transpilation options can also be set through `babelOptions` or `traceurOptions` in the jspm config file.
+* **Client baseURL**: 来自浏览器的URL路径，也就是公共目录所在的位置。
+* **Transpiler**: 可以在任何时候用 `jspm dl-loader --babel`修改此选项。也可以通过在jspm配置文件中定义 `babelOptions` 或 `traceurOptions` 来自定义转译器的可选项。
 
 If you ever need to reset any of these properties, you can modify the package.json, which will update the configuration when you next run `jspm install` or `jspm init` to refresh.
 
