@@ -1,0 +1,141 @@
+---
+layout: post
+title: "Jspm CLI入门教程"
+modified:
+categories:
+description:
+tags: []
+image:
+  feature:
+  credit:
+  creditlink:
+comments:
+share:
+date: 2015-04-07T16:25:55+08:00
+---
+
+[原文链接](https://github.com/jspm/jspm-cli/wiki/Getting-Started)
+
+译者：Mofe(mofe@me.com)
+
+### 1. 安装 jspm CLI:
+
+  ```
+    npm install jspm -g
+  ```
+
+### 2. 创建一个项目:
+
+可以用如下方法在项目中锁定jspm版本:
+
+  ```
+    cd my-project
+    npm install jspm
+  ```
+
+> 特别建议在本地锁定jspm的版本，因为他能保证全局环境下的jspm的升级不会影响你的应用程序。可以用`jspm -v`来确定本地jspm版本。
+
+创建一个本地配置文件：
+
+  ```
+  jspm init
+
+Package.json file does not exist, create it? [yes]:
+Would you like jspm to prefix the jspm package.json properties under jspm? [yes]:
+Enter server baseURL (public folder path) [.]:
+Enter jspm packages folder [./jspm_packages]:
+Enter config file path [./config.js]:
+Configuration file config.js doesn't exist, create it? [yes]:
+Enter client baseURL (public folder URL) [/]:
+Which ES6 transpiler would you like to use, Traceur or Babel? [traceur]:
+```
+
+  这些操作用于设置`package.json`和config文件。
+  注意，当你尝试在一个空目录用jspm安装一个依赖时，`jspm init`会自动运行。
+
+* **baseURL**: 这个参数用于配置相对于package.json文件，提供服务的公共目录，。 _默认为package.json所在的文件夹。_
+* **jspm packages folder**: 这个目录指向将安装外部依赖的文件夹。
+* **Config file path**: 应用程序的jspm配置文件路径。此路径必须包含在`baseURL`里，并且要被包含在版本控制文件中。
+* **Client baseURL**: The URL from the browser where the public folder is hosted.
+* **Transpiler**: Change this option at any time with `jspm dl-loader --babel`. Custom transpilation options can also be set through `babelOptions` or `traceurOptions` in the jspm config file.
+
+If you ever need to reset any of these properties, you can modify the package.json, which will update the configuration when you next run `jspm install` or `jspm init` to refresh.
+
+It is possible to run through the above prompts again at any time with `jspm init -p`.
+
+### 3. 安装一些来自jspm Registry，Github或者npm里的依赖包：
+
+  ```
+    jspm install npm:lodash-node
+    jspm install github:components/jquery
+    jspm install jquery
+    jspm install myname=npm:underscore
+  ```
+
+  Multiple installs can also be combined into a single line separated by spaces.
+
+  Any npm or Github package can be installed in this way.
+
+  Most npm packages will install without any configuration necessary. This is because the npm registry endpoint applies conversion operations based on the assumption of Node require resolution making the Node and npm-style code compatible with jspm.
+
+Github packages may need to be configured for jspm first. [Read the guide here on configuring packages for jspm](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm).
+
+  All installs are saved into the package.json, so that the jspm_packages folder and configuration file can be entirely recreated with a single `jspm install` call with no arguments. This is ideal for version-controlled projects where third party packages aren't saved in the repo itself.
+
+  The config.js file is updated with the version information and the version is locked down, this configuration file itself forming the lock, which should be added to version control.
+
+### 4. 撰写应用程序的代码
+
+We can now write into our `lib` folder code that loads our dependencies, in any module format (including ES6):
+
+  lib/bootstrap.js
+  ```javascript
+    import _ from 'lodash-node/modern/lang/isEqual';
+    import $ from 'jquery';
+    import underscore from 'myname';
+
+    export function bootstrap() {
+      // bootstrap code here
+    }
+  ```
+
+  lib/main.js
+  ```javascript
+    import {bootstrap} from './bootstrap';
+    bootstrap();
+  ```
+
+### 5. 运行代码
+
+In an HTML page include the automatically downloaded SystemJS loader along with the config file, then import our application main entry point:
+
+  ```html
+  <!doctype html>
+  <script src="jspm_packages/system.js"></script>
+  <script src="config.js"></script>
+  <script>
+    System.import('lib/main');
+  </script>
+  ```
+
+Run a local server and view the page, or run the browser with the [file access from files flag](https://github.com/systemjs/systemjs/wiki/Basic-Use#file-access-from-files) and open the HTML page directly.
+
+> Note if using the file access from files flag, you will need to set the `config.js` baseURL to `.` so that packages are loaded relative to the HTML page itself.
+
+### 6. 为生产环境打包
+
+```
+  jspm bundle lib/main --inject
+```
+
+Refresh the browser, and see the entire app loaded from a single bundle file.
+
+Alternatively, use `jspm bundle-sfx lib/main` to create a bundle script that can be used on its own with a `<script>` tag independent of `config.js` and `system.js`.
+
+### 下一步
+
+[浏览关于生产环境下的工作流](https://github.com/jspm/jspm-cli/wiki/Production-Workflows)
+
+[浏览jspm配置指南](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm).
+
+_如果你有关于配置jspm依赖包的问题，可以在registry[提交一个issue](https://github.com/jspm/registry/) ，我们会帮你解决这个配置问题。_
